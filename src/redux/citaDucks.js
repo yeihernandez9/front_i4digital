@@ -9,6 +9,7 @@ const dataInicial = {
 // types
 const GET_ALL_CITAS = 'GET_ALL_CITAS'
 const DELETE_CITA = 'DELETE_CITA'
+const ADD_CITA = 'ADD_CITA'
 
 // reducer
 export default function citaReducer(state = dataInicial, action){
@@ -16,7 +17,9 @@ export default function citaReducer(state = dataInicial, action){
         case GET_ALL_CITAS:
             return {...state, array: action.payload}
         case DELETE_CITA:
-                return {...state, array: action.payload}
+            return {...state, array: action.payload}
+        case ADD_CITA:
+            return {...state, array: action.payload}
         default:
             return state
     }
@@ -44,6 +47,18 @@ export const deleteCita = (id) => async (dispatch) => {
         dispatch({
             type: DELETE_CITA,
             payload: res
+        })
+    }catch(error){
+
+    }
+}
+
+export const addCita = (body) => async (dispatch) => {
+    try{
+        const res = await axios.post('http://localhost:8081/api/create',body)
+        dispatch({
+            type: ADD_CITA,
+            payload: res.data.data
         })
     }catch(error){
 

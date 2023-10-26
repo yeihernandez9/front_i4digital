@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {addCita} from '../../redux/citaDucks'
 
 const AddCitas = ({ show, handleClose }) => {
+  const dispatch = useDispatch();
+  const citas = useSelector((store) => store.citas.array);
+
     const [nuevaCita, setNuevaCita] = useState({
         name: "",
         description: "",
-        // Agrega otros campos según tus necesidades
+        duration_minutes : "",
+        color_hex_code: "",
       });
 
       const handleChange = (e) => {
@@ -16,7 +22,7 @@ const AddCitas = ({ show, handleClose }) => {
     
       const handleSubmit = (e) => {
         e.preventDefault();
-        // Aquí puedes enviar la nueva cita al servidor o actualizar el estado de tus citas.
+        dispatch(addCita(nuevaCita));
         handleClose();
       };
 
@@ -25,7 +31,7 @@ const AddCitas = ({ show, handleClose }) => {
     <div className="modal-dialog">
       <div className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title">Agregar Nueva Cita</h5>
+          <h5 className="modal-title">Add Cita</h5>
           <button type="button" className="close" onClick={handleClose}>
             <span>&times;</span>
           </button>
@@ -33,7 +39,7 @@ const AddCitas = ({ show, handleClose }) => {
         <div className="modal-body">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Nombre:</label>
+              <label>Name:</label>
               <input
                 type="text"
                 name="nombre"
@@ -42,16 +48,34 @@ const AddCitas = ({ show, handleClose }) => {
               />
             </div>
             <div className="form-group">
-              <label>Fecha:</label>
+              <label>Description:</label>
               <input
-                type="date"
+                type="text"
+                name="description"
+                value={nuevaCita.description}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Time:</label>
+              <input
+                type="number"
+                name="duration_minutes"
+                value={nuevaCita.duration_minutes}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Color Hex:</label>
+              <input
+                type="text"
                 name="fecha"
-                value={nuevaCita.fecha}
+                value={nuevaCita.color_hex_code}
                 onChange={handleChange}
               />
             </div>
             {/* Agrega más campos del formulario según tus necesidades */}
-            <button type="submit">Guardar Cita</button>
+            <button type="submit">Save Cita</button>
           </form>
         </div>
       </div>

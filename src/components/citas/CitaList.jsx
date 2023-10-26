@@ -36,15 +36,14 @@ const CitaList = () => {
     console.log(citaId)
     dispatch(deleteCita(citaId));
 
-    // Lógica para eliminar la cita con el identificador citaId
-    // Puedes utilizar el método `filter` u otra lógica para eliminar la cita
+   
   };
 
   return (
     <>
     <div>
-      <h2>Lista de Citas</h2>
-      <button onClick={handleOpenModal}>Agregar Cita</button>
+      <h2>List Citas</h2>
+      <button onClick={handleOpenModal}>Add Cita</button>
       <AddCitas show={showModal} handleClose={handleCloseModal} />
       <button onClick={() => dispatch(getCitaAction())}>Obtener</button>
       <table className="table">
